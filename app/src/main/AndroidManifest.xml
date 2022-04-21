@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.dficyclinginstructionsandchecklist">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DFICyclingInstructionsAndChecklist">
+        <activity
+            android:name=".EmapticaBaselineHelp"
+            android:exported="false" />
+        <activity
+            android:name=".EmpaticaConnection"
+            android:exported="false" />
+        <activity
+            android:name=".forwardGoProHelp"
+            android:exported="false" />
+        <activity
+            android:name=".bike_activity_start_help"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity_page_2"
+            android:exported="false"
+            android:label="Time Sync Page" />
+        <activity
+            android:name=".Incident_recording"
+            android:exported="false" />
+        <activity
+            android:name=".HRV_app_help"
+            android:exported="false" />
+        <activity
+            android:name=".save_video_help"
+            android:exported="false" />
+        <activity
+            android:name=".save_audio_help"
+            android:exported="false" />
+        <activity
+            android:name=".Mic_Attach"
+            android:exported="false" />
+        <activity
+            android:name=".GoPro_Angling"
+            android:exported="false" />
+        <activity
+            android:name=".Attach_GoPro"
+            android:exported="false" />
+        <activity
+            android:name=".HRV_help"
+            android:exported="false" />
+        <activity
+            android:name=".BikeComputerMountHelp"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="Setup and Checklist">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
