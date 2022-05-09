@@ -38,9 +38,9 @@ import java.util.Calendar;
 
 public class MainActivity_page_2 extends AppCompatActivity {
     private TextView participantName, foolCheck;
-    private Boolean save_audio_pressed = false, save_vid_pressed = false;
-    private String audio_dateTime, video_dateTime;
-    private Button audio_button, vid_button, save_finish_button;
+    private Boolean save_audio_pressed = false, save_vid_pressed = false, save_GPS_pressed = false;
+    private String audio_dateTime, video_dateTime, GPS_dateTime;
+    private Button audio_button, vid_button, save_finish_button, gps_button;
     private LocationManager locationManager;
     private String latitude_num = " ",longitude_num = " ";
     private String temperature,weatherDescription, city_location, wind_1;
@@ -63,6 +63,7 @@ public class MainActivity_page_2 extends AppCompatActivity {
         audio_button = (Button)(findViewById(R.id.saveAudio));
         vid_button = (Button)(findViewById(R.id.saveVideo2));
         save_finish_button = (Button)(findViewById(R.id.finished));
+        gps_button = (Button)(findViewById(R.id.saveGPS));
 
         participantName.setText("Hi " + test.get(0));
 
@@ -71,10 +72,12 @@ public class MainActivity_page_2 extends AppCompatActivity {
         save_finish_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(save_audio_pressed && save_vid_pressed){
+                if(save_audio_pressed && save_vid_pressed && save_GPS_pressed){
                     finished_and_save(test);
                 }else if(!save_audio_pressed){
                     Toast.makeText(getApplicationContext(), "You haven't synced the audio time", Toast.LENGTH_LONG).show();
+                }else if(!save_GPS_pressed){
+                    Toast.makeText(getApplicationContext(), "You haven't synced the GPS time", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(getApplicationContext(), "You haven't synced the video time", Toast.LENGTH_LONG).show();
                 }
@@ -92,6 +95,14 @@ public class MainActivity_page_2 extends AppCompatActivity {
         save_audio_pressed = true;
         getWeather();
 
+    }
+
+    public void saveGPS(View v){
+        Calendar audio_calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
+        GPS_dateTime = simpleDateFormat.format(audio_calendar.getTime());
+        gps_button.setEnabled(false);
+        save_GPS_pressed = true;
     }
     public void audioSyncHelp(View v){
         Intent audioSync_help = new Intent(this,save_audio_help.class);
@@ -125,11 +136,11 @@ public class MainActivity_page_2 extends AppCompatActivity {
         textToSave.append("HRV monitor has been attached,").append(information.get(7)).append("\n");
         textToSave.append("Empatica device properly attached,").append(information.get(8)).append("\n");
         textToSave.append("HRV activity started,").append(information.get(9)).append("\n");
-        textToSave.append("Bike computer activity started,").append(information.get(10)).append("\n");
+        //textToSave.append("Bike computer activity started,").append(information.get(10)).append("\n");
         //Saving the video and audio start times
+        textToSave.append("GPS started at: ").append(GPS_dateTime).append('\n');
         textToSave.append("Audio started at: ").append(audio_dateTime).append('\n');
         textToSave.append("Video started at: ").append(video_dateTime).append('\n');
-
         textToSave.append("The temp in degrees is: ").append(temperature).append('\n');
         textToSave.append("The description is: ").append(weatherDescription).append('\n');
         textToSave.append("The wind levels are (km/h): ").append(wind_1).append('\n');
