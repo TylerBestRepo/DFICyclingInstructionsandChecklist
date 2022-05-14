@@ -25,4 +25,8 @@
         <item name="colorAccent">#00FF7F</item>
         <item name="colorPrimary">#00FF7F</item>
     </style>
+    <style name="Button.Blue" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">#1d6ab3</item>
+        <item name="colorPrimary">#1d6ab3</item>
+    </style>
 </resources>

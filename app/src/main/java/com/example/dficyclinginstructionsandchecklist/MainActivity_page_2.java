@@ -138,13 +138,13 @@ public class MainActivity_page_2 extends AppCompatActivity {
         textToSave.append("HRV activity started,").append(information.get(9)).append("\n");
         //textToSave.append("Bike computer activity started,").append(information.get(10)).append("\n");
         //Saving the video and audio start times
-        textToSave.append("GPS started at: ").append(GPS_dateTime).append('\n');
-        textToSave.append("Audio started at: ").append(audio_dateTime).append('\n');
-        textToSave.append("Video started at: ").append(video_dateTime).append('\n');
-        textToSave.append("The temp in degrees is: ").append(temperature).append('\n');
-        textToSave.append("The description is: ").append(weatherDescription).append('\n');
-        textToSave.append("The wind levels are (km/h): ").append(wind_1).append('\n');
-        textToSave.append("The location is: ").append(city_location).append('\n');
+        textToSave.append("GPS started at,").append(GPS_dateTime).append('\n');
+        textToSave.append("Audio started at,").append(audio_dateTime).append('\n');
+        textToSave.append("Video started at,").append(video_dateTime).append('\n');
+        textToSave.append("The temp in degrees is,").append(temperature).append('\n');
+        textToSave.append("The description is,").append(weatherDescription).append('\n');
+        textToSave.append("The wind levels are (km/h),").append(wind_1).append('\n');
+        textToSave.append("The location is,").append(city_location).append('\n');
 
         //Saving to the documents folder of the phones storage
         try{

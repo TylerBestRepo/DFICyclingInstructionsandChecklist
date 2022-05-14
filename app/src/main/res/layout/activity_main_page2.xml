@@ -8,17 +8,17 @@
 
     <Button
         android:id="@+id/saveGPS"
-        android:layout_width="237dp"
-        android:layout_height="115dp"
+        android:layout_width="213dp"
+        android:layout_height="93dp"
         android:layout_marginStart="115dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="115dp"
         android:layout_marginBottom="576dp"
         android:gravity="center"
         android:onClick="saveGPS"
         android:text="Save GPS"
         android:textSize="20sp"
-        android:theme="@style/Button.Green"
+        android:theme="@style/Button.Blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,19 +29,17 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="Press this when you \npress record on the GoPro"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/saveVideo2"
         app:layout_constraintEnd_toEndOf="@+id/textView10"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView10" />
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/saveVideo2" />
 
     <Button
         android:id="@+id/saveVideo2"
-        android:layout_width="237dp"
-        android:layout_height="115dp"
-        android:layout_marginTop="76dp"
+        android:layout_width="213dp"
+        android:layout_height="93dp"
+        android:layout_marginTop="65dp"
         android:gravity="center"
         android:onClick="saveVideo"
         android:text="Save Video"
@@ -84,12 +82,23 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:text="Press this when you \npress record on the Mic"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/saveAudio"
-        app:layout_constraintStart_toStartOf="@+id/saveAudio" />
+        app:layout_constraintEnd_toEndOf="@+id/saveAudio"
+        app:layout_constraintStart_toStartOf="@+id/saveAudio"
+        app:layout_constraintTop_toBottomOf="@+id/saveAudio" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Press this when you press record \non the bike computer"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/saveAudio"
+        app:layout_constraintStart_toStartOf="@+id/saveAudio"
+        app:layout_constraintTop_toBottomOf="@+id/saveGPS" />
 
     <TextView
         android:id="@+id/p_name"
@@ -105,10 +114,10 @@
 
     <Button
         android:id="@+id/saveAudio"
-        android:layout_width="237dp"
-        android:layout_height="115dp"
+        android:layout_width="213dp"
+        android:layout_height="93dp"
         android:layout_marginStart="115dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="115dp"
         android:layout_marginBottom="380dp"
         android:gravity="center"
@@ -119,8 +128,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/p_name"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <Button
         android:id="@+id/finished"
@@ -131,24 +139,25 @@
         android:theme="@style/Button.Green"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.929" />
+        app:layout_constraintVertical_bias="0.953" />
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="316dp"
+        android:layout_height="43dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:text="If you've pressed the save audio and video \nbuttons you should now press finished"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/finished"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/saveVideo2" />
+        app:layout_constraintEnd_toEndOf="@+id/textView13"
+        app:layout_constraintHorizontal_bias="0.553"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintVertical_bias="0.741" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

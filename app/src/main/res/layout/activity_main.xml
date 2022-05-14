@@ -12,17 +12,16 @@
         android:id="@+id/bike_computer_help"
         android:layout_width="39dp"
         android:layout_height="37dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="cursive"
         android:onClick="bikeComputerHelp"
         android:text="i"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/textView11"
         app:layout_constraintEnd_toEndOf="@+id/gopro_help"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/HRV_help"
-        app:layout_constraintTop_toTopOf="@+id/textView11"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/fitbit_help"
         tools:ignore="TouchTargetSizeCheck" />
 
     <CheckBox
@@ -32,10 +31,9 @@
         android:text=""
         android:textSize="20sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/textView11"
+        app:layout_constraintBottom_toBottomOf="@+id/bike_computer_help"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView11"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/bike_computer_help" />
 
     <TextView
         android:id="@+id/textView6"
@@ -47,18 +45,6 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:text="9. Start recording on the bike\n    computer"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        tools:visibility="invisible" />
 
     <TextView
         android:id="@+id/textView"
@@ -360,7 +346,7 @@
         android:id="@+id/next_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:onClick="main_page_2"
         android:text="Next"
         android:theme="@style/Button.Red"
@@ -368,7 +354,7 @@
         app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <CheckBox
         android:id="@+id/goProCheck"
