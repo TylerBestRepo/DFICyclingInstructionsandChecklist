@@ -164,83 +164,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void writeFile(){
-        String rider_name = IDinput.getText().toString();
-        String date = ride_date_time.getText().toString();
-        StringBuilder textToSave = new StringBuilder(100);
-        textToSave.append("Participant ID, ").append(rider_name).append("\n");
-        textToSave.append("Date of ride, ").append(date).append("\n");
-
-        if(goProCheckBool){
-            textToSave.append("Attached GoPro, True\n");
-        }else {
-            textToSave.append("Attached GoPro, False\n");
-        }
-        if(forwardGoProBool){
-            textToSave.append("Forward facing GoPro attached, True\n");
-        }else{
-            textToSave.append("Forward facing GoPro attached, False\n");
-        }
-        if(micCheckBool){
-            textToSave.append("Microphone attached, True\n");
-        }else{
-            textToSave.append("Microphone attached, False\n");
-        }
-        if(GpsCheckBool){
-            textToSave.append("GPS + mount attached, True\n");
-        }else{
-            textToSave.append("GPS + mount attached, False\n");
-        }
-        if(goProAngleCheckBool){
-            textToSave.append("GoPro angle has been checked, True\n");
-        }else{
-            textToSave.append("GoPro angle has been checked, False\n");
-        }
-        if(HRVmonitorCheckBool){
-            textToSave.append("HRV monitor has been attached, True\n");
-        }else{
-            textToSave.append("HRV monitor has been attached, False\n");
-        }
-        if(hrvAPPstartBool){
-            textToSave.append("HRV activity started, True\n");
-        }else{
-            textToSave.append("HRV activity started, False\n");
-        }
-        if(bikeActivityStartBool){
-            textToSave.append("Bike computer activity started, True\n");
-        }else{
-            textToSave.append("Bike computer activity started, False\n");
-        }
-
-
-        //Saving the video and audio start times
-        textToSave.append("Audio started at: ").append(audio_dateTime).append('\n');
-        textToSave.append("Video started at: ").append(video_dateTime).append('\n');
-
-        //textToSave.append("The temp in degrees is: ").append(temperature).append('\n');
-        //textToSave.append("The description is: ").append(weatherDescription).append('\n');
-        //textToSave.append("The wind levels are: ").append(wind_1).append('\n');
-        //textToSave.append("The location is: ").append(city_location).append('\n');
-
-        //Saving to the documents folder of the phones storage
-        try{
-            String downloadDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
-            String path = downloadDirectory + '/' + rider_name + " " + date + ".txt";
-
-            FileOutputStream fos = new FileOutputStream(path);
-            fos.write(textToSave.toString().getBytes(StandardCharsets.UTF_8));
-            fos.flush();
-            fos.close();
-
-            Toast.makeText(getApplicationContext(), "Data saved", Toast.LENGTH_SHORT).show();
-            IDinput.setText("");
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-
-
     public void alertDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setCancelable(true);
@@ -313,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void main_page_2(View v){
+        String current_time;
         String participant_name = IDinput.getText().toString();
         if (participant_name.matches("")){
             Toast.makeText(getApplicationContext(), "You didn't input your name", Toast.LENGTH_SHORT).show();
@@ -321,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
 
             textToForward = new ArrayList<String>();
             String date = ride_date_time.getText().toString();
-            StringBuilder textToSave = new StringBuilder(100);
+
 
             textToForward.add(participant_name);
             textToForward.add(date);
@@ -392,6 +316,11 @@ public class MainActivity extends AppCompatActivity {
             }else {
                 textToForward.add("False");
             }
+            Calendar ride_calendar = Calendar.getInstance();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH-mm-ss");
+            current_time = simpleDateFormat.format(ride_calendar.getTime());
+
+            textToForward.add(current_time);
 
             //Adding the list we just generated to the activity
             main_page_2.putStringArrayListExtra("forwarding", (ArrayList<String>) textToForward);

@@ -89,7 +89,7 @@ public class MainActivity_page_2 extends AppCompatActivity {
 
     public void saveAudio(View v){
         Calendar audio_calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         audio_dateTime = simpleDateFormat.format(audio_calendar.getTime());
         audio_button.setEnabled(false);
         save_audio_pressed = true;
@@ -99,7 +99,7 @@ public class MainActivity_page_2 extends AppCompatActivity {
 
     public void saveGPS(View v){
         Calendar audio_calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         GPS_dateTime = simpleDateFormat.format(audio_calendar.getTime());
         gps_button.setEnabled(false);
         save_GPS_pressed = true;
@@ -115,7 +115,7 @@ public class MainActivity_page_2 extends AppCompatActivity {
     }
     public void saveVideo(View v){
         Calendar video_calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         video_dateTime = simpleDateFormat.format(video_calendar.getTime());
         vid_button.setEnabled(false);
         save_vid_pressed = true;
@@ -151,7 +151,9 @@ public class MainActivity_page_2 extends AppCompatActivity {
             String downloadDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
             String rider_name = information.get(0);
             String date = information.get(1);
-            String path = downloadDirectory + '/' + rider_name + " " + date + ".txt";
+            String time = information.get(12);
+            String date_and_time = date + " " + time;
+            String path = downloadDirectory + '/' + rider_name + " " + date_and_time + ".txt";
 
             FileOutputStream fos = new FileOutputStream(path);
             fos.write(textToSave.toString().getBytes(StandardCharsets.UTF_8));
@@ -183,10 +185,6 @@ public class MainActivity_page_2 extends AppCompatActivity {
 
             }
         });
-        String temporary = latitude_num;
-        //if(temporary.matches(" ")){
-        //    Toast.makeText(getApplicationContext(), "Retrieving GPS data", Toast.LENGTH_SHORT).show();
-        //}
     }
     public void getWeather() {
         Toast.makeText(getApplicationContext(), "Pulling weather", Toast.LENGTH_SHORT).show();
