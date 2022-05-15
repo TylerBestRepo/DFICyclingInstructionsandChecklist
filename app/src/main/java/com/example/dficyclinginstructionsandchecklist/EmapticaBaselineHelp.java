@@ -16,7 +16,6 @@ public class EmapticaBaselineHelp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emaptica_baseline_help);
-        Button play = (Button) (findViewById(R.id.playVideo));
         video = (VideoView) (findViewById(R.id.video));
         mediaC = new MediaController(this);
         video.setVideoPath("android.resource://"+getPackageName()+"/"+ R.raw.verticalempatica);
