@@ -38,9 +38,9 @@ import java.util.Calendar;
 
 public class MainActivity_page_2 extends AppCompatActivity {
     private TextView participantName, foolCheck;
-    private Boolean save_audio_pressed = false, save_vid_pressed = false, save_GPS_pressed = false;
-    private String audio_dateTime, video_dateTime, GPS_dateTime;
-    private Button audio_button, vid_button, save_finish_button, gps_button;
+    private Boolean save_audio_pressed = false, save_vid_pressed = false, save_GPS_pressed = false, save_forward_video_pressed = false;
+    private String audio_dateTime, video_dateTime, GPS_dateTime, videoForward_dateTime;
+    private Button audio_button, vid_button, save_finish_button, gps_button, vid_forward_button;
     private LocationManager locationManager;
     private String latitude_num = " ",longitude_num = " ";
     private String temperature,weatherDescription, city_location, wind_1;
@@ -64,6 +64,7 @@ public class MainActivity_page_2 extends AppCompatActivity {
         vid_button = (Button)(findViewById(R.id.saveVideo2));
         save_finish_button = (Button)(findViewById(R.id.finished));
         gps_button = (Button)(findViewById(R.id.saveGPS));
+        vid_forward_button = (Button)(findViewById(R.id.saveForwardVideo));
 
         participantName.setText("Hi " + test.get(0));
 
@@ -72,11 +73,13 @@ public class MainActivity_page_2 extends AppCompatActivity {
         save_finish_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(save_audio_pressed && save_vid_pressed && save_GPS_pressed){
+                if(save_audio_pressed && save_vid_pressed && save_GPS_pressed && save_forward_video_pressed){
                     finished_and_save(test);
                 }else if(!save_audio_pressed){
                     Toast.makeText(getApplicationContext(), "You haven't synced the audio time", Toast.LENGTH_LONG).show();
-                }else if(!save_GPS_pressed){
+                }else if(!save_forward_video_pressed){
+                    Toast.makeText(getApplicationContext(), "You haven't synced the forward GoPro time", Toast.LENGTH_LONG).show();
+                } else if(!save_GPS_pressed){
                     Toast.makeText(getApplicationContext(), "You haven't synced the GPS time", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(getApplicationContext(), "You haven't synced the video time", Toast.LENGTH_LONG).show();
@@ -118,8 +121,16 @@ public class MainActivity_page_2 extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         video_dateTime = simpleDateFormat.format(video_calendar.getTime());
         vid_button.setEnabled(false);
-        save_vid_pressed = true;
+        save_forward_video_pressed = true;
 
+    }
+
+    public void saveForwardVideo(View v){
+        Calendar video_calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        videoForward_dateTime = simpleDateFormat.format(video_calendar.getTime());
+        vid_forward_button.setEnabled(false);
+        save_vid_pressed = true;
     }
 
     public void finished_and_save(ArrayList<String> information){
@@ -141,6 +152,7 @@ public class MainActivity_page_2 extends AppCompatActivity {
         textToSave.append("GPS started at,").append(GPS_dateTime).append('\n');
         textToSave.append("Audio started at,").append(audio_dateTime).append('\n');
         textToSave.append("Video started at,").append(video_dateTime).append('\n');
+        textToSave.append("Forward facing video at,").append(video_dateTime).append('\n');
         textToSave.append("The temp in degrees is,").append(temperature).append('\n');
         textToSave.append("The description is,").append(weatherDescription).append('\n');
         textToSave.append("The wind levels are (km/h),").append(wind_1).append('\n');

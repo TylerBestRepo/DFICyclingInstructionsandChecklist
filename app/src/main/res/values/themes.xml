@@ -29,4 +29,8 @@
         <item name="colorAccent">#1d6ab3</item>
         <item name="colorPrimary">#1d6ab3</item>
     </style>
+    <style name="Button.Pinkish" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">#bb3398</item>
+        <item name="colorPrimary">#bb3398</item>
+    </style>
 </resources>
