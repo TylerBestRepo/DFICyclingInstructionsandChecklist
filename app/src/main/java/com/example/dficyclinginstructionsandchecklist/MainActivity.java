@@ -337,6 +337,11 @@ public class MainActivity extends AppCompatActivity {
         Intent baseline_help = new Intent(this, EmapticaBaselineHelp.class);
         startActivity(baseline_help);
     }
+
+    public void openMicRecordingPage(View v){
+        Intent recordingPage = new Intent(this, AudioRecorder.class);
+        startActivity(recordingPage);
+    }
 }
 
 
