@@ -73,10 +73,8 @@ public class MainActivity_page_2 extends AppCompatActivity {
         save_finish_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(save_audio_pressed && save_vid_pressed && save_GPS_pressed && save_forward_video_pressed){
+                if(save_vid_pressed && save_GPS_pressed && save_forward_video_pressed){
                     finished_and_save(test);
-                }else if(!save_audio_pressed){
-                    Toast.makeText(getApplicationContext(), "You haven't synced the audio time", Toast.LENGTH_LONG).show();
                 }else if(!save_forward_video_pressed){
                     Toast.makeText(getApplicationContext(), "You haven't synced the forward GoPro time", Toast.LENGTH_LONG).show();
                 } else if(!save_GPS_pressed){

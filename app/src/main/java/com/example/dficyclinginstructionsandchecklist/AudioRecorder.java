@@ -26,7 +26,7 @@ public class AudioRecorder extends AppCompatActivity {
 
     public static final int MIC = 1;
 
-    private MediaRecorder mediaRecorder;
+    private MediaRecorder mediaRecorder, recorder;
     private MediaPlayer mediaPlayer;
     private TextView stopRecordingMessage;
 
@@ -46,27 +46,12 @@ public class AudioRecorder extends AppCompatActivity {
             getMicrophonePermission();
         }
 
-        startRecording.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopRecording.setVisibility(View.VISIBLE);
-                startRecording.setVisibility(View.GONE);
-            }
-        });
-
-        stopRecording.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopRecording.setVisibility(View.GONE);
-                startRecording.setVisibility(View.VISIBLE);
-            }
-        });
     }
 
     public void btnRecord(View v){
         
         try {
-            mediaRecorder = new MediaRecorder();
+            /*mediaRecorder = new MediaRecorder();
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
             mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
@@ -75,6 +60,21 @@ public class AudioRecorder extends AppCompatActivity {
             mediaRecorder.setOutputFile(getRecordingFilePath());
             mediaRecorder.prepare();
             mediaRecorder.start();
+            stopRecording.setVisibility(View.VISIBLE);
+            startRecording.setVisibility(View.INVISIBLE);
+
+
+             */
+
+            recorder = new MediaRecorder();
+            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            recorder.setOutputFile(getRecordingFilePath());
+            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            recorder.prepare();
+            recorder.start();
+            stopRecording.setVisibility(View.VISIBLE);
+            startRecording.setVisibility(View.INVISIBLE);
 
             Toast.makeText(this, "Recording has been started", Toast.LENGTH_SHORT).show();
         } catch(Exception e) {
@@ -84,12 +84,15 @@ public class AudioRecorder extends AppCompatActivity {
     }
 
     public void btnStopRecord(View V){
-        mediaRecorder.stop();
+        /*mediaRecorder.stop();
         mediaRecorder.release();
-        mediaRecorder = null;
-
+        mediaRecorder = null; */
+        recorder.stop();
+        recorder.release();
+        recorder = null;
         Toast.makeText(this, "Recording has been stopped successfully", Toast.LENGTH_SHORT).show();
-
+        stopRecording.setVisibility(View.GONE);
+        startRecording.setVisibility(View.VISIBLE);
     }
 
     public void btnPlayRecording(View v){
@@ -135,7 +138,7 @@ public class AudioRecorder extends AppCompatActivity {
         String current_time = twenty4HRtime.format(ride_calendar.getTime());
 
         String date_and_time = current_date + " " + current_time;
-        File file = new File(path,date_and_time + ".m4a");
+        File file = new File(path,date_and_time + ".3gp");
 
         stopRecordingMessage.setText(date_and_time);
 
