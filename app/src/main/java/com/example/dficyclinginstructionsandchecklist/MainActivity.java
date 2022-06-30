@@ -338,9 +338,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(baseline_help);
     }
 
-    public void openMicRecordingPage(View v){
-        Intent recordingPage = new Intent(this, AudioRecorder.class);
-        startActivity(recordingPage);
+    public void openGoProTestPage(View v){
+        Intent GoProTestPage = new Intent(this, GoProStartPage.class);
+        startActivity(GoProTestPage);
     }
 }
 

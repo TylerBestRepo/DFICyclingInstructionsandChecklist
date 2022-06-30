@@ -10,38 +10,39 @@
         android:id="@+id/saveGPS"
         android:layout_width="160dp"
         android:layout_height="100dp"
-        android:layout_marginStart="12dp"
         android:gravity="center"
         android:onClick="saveGPS"
         android:text="Save GPS"
         android:textSize="20sp"
         android:theme="@style/Button.Blue"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.255" />
+        app:layout_constraintVertical_bias="0.252" />
 
     <Button
         android:id="@+id/saveVideo2"
         android:layout_width="160dp"
         android:layout_height="100dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:onClick="saveVideo"
         android:text="Save Face Video"
         android:textSize="20sp"
         android:theme="@style/Button.Teal"
         app:layout_constraintEnd_toEndOf="@+id/saveGPS"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/saveGPS"
-        app:layout_constraintTop_toBottomOf="@+id/saveAudio" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveGPS" />
 
     <Button
         android:id="@+id/saveForwardVideo"
         android:layout_width="160dp"
         android:layout_height="100dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="84dp"
         android:gravity="center"
         android:onClick="saveForwardVideo"
@@ -49,11 +50,10 @@
         android:textSize="20sp"
         android:theme="@style/Button.Pinkish"
         app:layout_constraintBottom_toBottomOf="@+id/saveVideo2"
-        app:layout_constraintEnd_toEndOf="@+id/saveAudio"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.832"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/saveAudio"
+        app:layout_constraintStart_toEndOf="@+id/saveVideo2"
         app:layout_constraintTop_toTopOf="@+id/saveVideo2"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -70,30 +70,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/saveAudio"
-        android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:onClick="saveAudio"
-        android:text="Save Audio"
-        android:textSize="20sp"
-        android:theme="@style/Button.Red"
-        app:layout_constraintBottom_toBottomOf="@+id/saveGPS"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/saveGPS"
-        app:layout_constraintTop_toTopOf="@+id/saveGPS"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
         android:id="@+id/finished"
-        android:layout_width="191dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="28dp"
-        android:text="FINISHED"
+        android:layout_width="249dp"
+        android:layout_height="111dp"
+        android:layout_marginTop="24dp"
+        android:text="Continue to recording audio"
 
         android:textSize="24sp"
         android:theme="@style/Button.Green"
-        app:layout_constraintHorizontal_bias="0.404"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -103,10 +87,10 @@
         android:layout_width="328dp"
         android:layout_height="76dp"
         android:layout_marginTop="56dp"
-        android:text="If you've pressed the save audio and video buttons you should now press finished"
+        android:text="If all of the buttons are noew greyed out you're good to go."
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.253"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saveVideo2" />
 

@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DFICyclingInstructionsAndChecklist">
         <activity
+            android:name=".GoProStartPage"
+            android:exported="false" />
+        <activity
             android:name=".AudioRecorder"
             android:exported="false" />
         <activity

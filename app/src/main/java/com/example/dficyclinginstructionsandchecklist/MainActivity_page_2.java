@@ -44,8 +44,9 @@ public class MainActivity_page_2 extends AppCompatActivity {
     private LocationManager locationManager;
     private String latitude_num = " ",longitude_num = " ";
     private String temperature,weatherDescription, city_location, wind_1;
+    private String current_date;
 
-    private TextView temp_audio, temp_video;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,6 @@ public class MainActivity_page_2 extends AppCompatActivity {
         ArrayList<String> test = extras.getStringArrayList("forwarding");
 
         participantName = (TextView)(findViewById(R.id.p_name));
-        audio_button = (Button)(findViewById(R.id.saveAudio));
         vid_button = (Button)(findViewById(R.id.saveVideo2));
         save_finish_button = (Button)(findViewById(R.id.finished));
         gps_button = (Button)(findViewById(R.id.saveGPS));
@@ -87,6 +87,8 @@ public class MainActivity_page_2 extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 
@@ -137,7 +139,12 @@ public class MainActivity_page_2 extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(), "Definitely enters the saving function", Toast.LENGTH_SHORT).show();
         StringBuilder textToSave = new StringBuilder(100);
         textToSave.append("Participant ID, ").append(information.get(0)).append("\n");
-        textToSave.append("Date of ride, ").append(information.get(1)).append("\n");
+
+        Calendar ride_calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        current_date = simpleDateFormat.format(ride_calendar.getTime());
+
+        textToSave.append("Date of ride, ").append(current_date).append("\n");
         textToSave.append("Empatica baseline recording completed, ").append(information.get(11)).append("\n");
         textToSave.append("Attached face angled GoPro, ").append(information.get(2)).append("\n");
         textToSave.append("Forward facing GoPro attached,").append(information.get(3)).append("\n");
@@ -150,7 +157,6 @@ public class MainActivity_page_2 extends AppCompatActivity {
         //textToSave.append("Bike computer activity started,").append(information.get(10)).append("\n");
         //Saving the video and audio start times
         textToSave.append("GPS started at,").append(GPS_dateTime).append('\n');
-        textToSave.append("Audio started at,").append(audio_dateTime).append('\n');
         textToSave.append("Video started at,").append(video_dateTime).append('\n');
         textToSave.append("Forward facing video at,").append(videoForward_dateTime).append('\n');
         textToSave.append("The temp in degrees is,").append(temperature).append('\n');
@@ -178,6 +184,11 @@ public class MainActivity_page_2 extends AppCompatActivity {
         }catch(IOException e){
             e.printStackTrace();
         }
+
+        // Now the app should go to a page to start the audio recording, since its native to the app
+        // then there is no need for syncing data to be present in the output .txt
+        Intent open_audio_recording = new Intent(this,AudioRecorder.class);
+        startActivity(open_audio_recording);
     }
 
 
@@ -231,5 +242,7 @@ public class MainActivity_page_2 extends AppCompatActivity {
         );
         queue.add(jor);
     }
+
+
 
 }

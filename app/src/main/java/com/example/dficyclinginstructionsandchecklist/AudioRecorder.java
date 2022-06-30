@@ -12,9 +12,13 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class AudioRecorder extends AppCompatActivity {
 
@@ -22,27 +26,53 @@ public class AudioRecorder extends AppCompatActivity {
 
     public static final int MIC = 1;
 
-    MediaRecorder mediaRecorder;
-    MediaPlayer mediaPlayer;
+    private MediaRecorder mediaRecorder;
+    private MediaPlayer mediaPlayer;
+    private TextView stopRecordingMessage;
+
+
+    private Button stopRecording, startRecording;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_recorder);
 
+
+        stopRecording = (Button)(findViewById(R.id.stopRecording));
+        startRecording = (Button)(findViewById(R.id.startRecording));
+        stopRecordingMessage = (TextView)(findViewById(R.id.recordingMessage));
+
         if (isMicrophonePresent()){
             getMicrophonePermission();
         }
+
+        startRecording.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopRecording.setVisibility(View.VISIBLE);
+                startRecording.setVisibility(View.GONE);
+            }
+        });
+
+        stopRecording.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopRecording.setVisibility(View.GONE);
+                startRecording.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     public void btnRecord(View v){
         
         try {
             mediaRecorder = new MediaRecorder();
-            //mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_COMMUNICATION);
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            mediaRecorder.setOutputFile(getRecordingFilePath());
+            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
             mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            mediaRecorder.setAudioEncodingBitRate(16*44100);
+            mediaRecorder.setAudioSamplingRate(44100);
+            mediaRecorder.setOutputFile(getRecordingFilePath());
             mediaRecorder.prepare();
             mediaRecorder.start();
 
@@ -94,10 +124,21 @@ public class AudioRecorder extends AppCompatActivity {
         String downloadDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
 
         String path = downloadDirectory;
-        ContextWrapper contextWrapper = new ContextWrapper((getApplicationContext()));
-        File downloadsDirectory = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+        //ContextWrapper contextWrapper = new ContextWrapper((getApplicationContext()));
+        //File downloadsDirectory = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
         // Will need to pass through the name of the file aka the time and date properly when doing this for real
-        File file = new File(downloadsDirectory,"testRecordingFile" + ".mp3");
+        Calendar ride_calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String current_date = simpleDateFormat.format(ride_calendar.getTime());
+
+        SimpleDateFormat twenty4HRtime = new SimpleDateFormat("HH-mm-ss");
+        String current_time = twenty4HRtime.format(ride_calendar.getTime());
+
+        String date_and_time = current_date + " " + current_time;
+        File file = new File(path,date_and_time + ".m4a");
+
+        stopRecordingMessage.setText(date_and_time);
+
         return file.getPath();
     }
 }
