@@ -26,7 +26,7 @@ public class AudioRecorder extends AppCompatActivity {
 
     public static final int MIC = 1;
 
-    private MediaRecorder mediaRecorder, recorder;
+    private MediaRecorder mediaRecorder, mRecorder;
     private MediaPlayer mediaPlayer;
     private TextView stopRecordingMessage;
 
@@ -66,13 +66,17 @@ public class AudioRecorder extends AppCompatActivity {
 
              */
 
-            recorder = new MediaRecorder();
-            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            recorder.setOutputFile(getRecordingFilePath());
-            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-            recorder.prepare();
-            recorder.start();
+            mRecorder = new MediaRecorder();
+            mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC);
+            mRecorder.setAudioEncodingBitRate(384000);
+            mRecorder.setAudioSamplingRate(44100);
+
+            mRecorder.setOutputFile(getRecordingFilePath());
+            mRecorder.prepare();
+            mRecorder.start();
+
             stopRecording.setVisibility(View.VISIBLE);
             startRecording.setVisibility(View.INVISIBLE);
 
@@ -87,9 +91,9 @@ public class AudioRecorder extends AppCompatActivity {
         /*mediaRecorder.stop();
         mediaRecorder.release();
         mediaRecorder = null; */
-        recorder.stop();
-        recorder.release();
-        recorder = null;
+        mRecorder.stop();
+        mRecorder.release();
+        mRecorder = null;
         Toast.makeText(this, "Recording has been stopped successfully", Toast.LENGTH_SHORT).show();
         stopRecording.setVisibility(View.GONE);
         startRecording.setVisibility(View.VISIBLE);
@@ -138,7 +142,7 @@ public class AudioRecorder extends AppCompatActivity {
         String current_time = twenty4HRtime.format(ride_calendar.getTime());
 
         String date_and_time = current_date + " " + current_time;
-        File file = new File(path,date_and_time + ".3gp");
+        File file = new File(path,date_and_time + ".m4a");
 
         stopRecordingMessage.setText(date_and_time);
 
