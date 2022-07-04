@@ -75,7 +75,7 @@
         android:layout_height="111dp"
         android:layout_marginTop="24dp"
         android:text="Continue to recording audio"
-
+        android:onClick="openMicrophonePage"
         android:textSize="24sp"
         android:theme="@style/Button.Green"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -87,7 +87,7 @@
         android:layout_width="328dp"
         android:layout_height="76dp"
         android:layout_marginTop="56dp"
-        android:text="If all of the buttons are noew greyed out you're good to go."
+        android:text="If all of the buttons are now greyed out you're good to go."
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"

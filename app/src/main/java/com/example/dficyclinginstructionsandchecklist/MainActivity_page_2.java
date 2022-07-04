@@ -35,8 +35,10 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity_page_2 extends AppCompatActivity {
+    private List<String> textToForward;
     private TextView participantName, foolCheck;
     private Boolean save_audio_pressed = false, save_vid_pressed = false, save_GPS_pressed = false, save_forward_video_pressed = false;
     private String audio_dateTime, video_dateTime, GPS_dateTime, videoForward_dateTime;
@@ -239,6 +241,20 @@ public class MainActivity_page_2 extends AppCompatActivity {
         }
         );
         queue.add(jor);
+    }
+
+    public void openMicrophonePage(View v){
+
+
+        Intent audioPage = new Intent(this, AudioRecorder.class);
+
+        textToForward = new ArrayList<String>();
+
+        String tempString = participantName.getText().toString();
+
+        textToForward.add(tempString);
+        audioPage.putStringArrayListExtra("nameForward", (ArrayList<String>) textToForward);
+        startActivity(audioPage);
     }
 
 

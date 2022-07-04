@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -16,8 +17,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AudioRecorder extends AppCompatActivity {
@@ -29,6 +33,7 @@ public class AudioRecorder extends AppCompatActivity {
     private MediaRecorder mediaRecorder, mRecorder;
     private MediaPlayer mediaPlayer;
     private TextView stopRecordingMessage;
+    private TextView participantName;
 
 
     private Button stopRecording, startRecording;
@@ -37,6 +42,16 @@ public class AudioRecorder extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_recorder);
 
+        // Getting the name of the participant from the previous page
+        participantName = (TextView)(findViewById(R.id.namePassThrough));
+
+        Intent intent = getIntent ();
+        Bundle extras = intent.getExtras();
+        //String name = extras.getString(MainActivity.EXTRA_TEXT);
+
+        ArrayList<String> test = extras.getStringArrayList("nameForward");
+
+        participantName.setText(test.get(0));
 
         stopRecording = (Button)(findViewById(R.id.stopRecording));
         startRecording = (Button)(findViewById(R.id.startRecording));
@@ -51,21 +66,6 @@ public class AudioRecorder extends AppCompatActivity {
     public void btnRecord(View v){
         
         try {
-            /*mediaRecorder = new MediaRecorder();
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-            mediaRecorder.setAudioEncodingBitRate(16*44100);
-            mediaRecorder.setAudioSamplingRate(44100);
-            mediaRecorder.setOutputFile(getRecordingFilePath());
-            mediaRecorder.prepare();
-            mediaRecorder.start();
-            stopRecording.setVisibility(View.VISIBLE);
-            startRecording.setVisibility(View.INVISIBLE);
-
-
-             */
-
             mRecorder = new MediaRecorder();
             mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
@@ -88,9 +88,6 @@ public class AudioRecorder extends AppCompatActivity {
     }
 
     public void btnStopRecord(View V){
-        /*mediaRecorder.stop();
-        mediaRecorder.release();
-        mediaRecorder = null; */
         mRecorder.stop();
         mRecorder.release();
         mRecorder = null;
@@ -99,19 +96,6 @@ public class AudioRecorder extends AppCompatActivity {
         startRecording.setVisibility(View.VISIBLE);
     }
 
-    public void btnPlayRecording(View v){
-        try {
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.setDataSource(getRecordingFilePath());
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-
-            Toast.makeText(this, "Recording is playing", Toast.LENGTH_SHORT).show();
-
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     private boolean isMicrophonePresent(){
         return this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE);
@@ -131,9 +115,6 @@ public class AudioRecorder extends AppCompatActivity {
         String downloadDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
 
         String path = downloadDirectory;
-        //ContextWrapper contextWrapper = new ContextWrapper((getApplicationContext()));
-        //File downloadsDirectory = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-        // Will need to pass through the name of the file aka the time and date properly when doing this for real
         Calendar ride_calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String current_date = simpleDateFormat.format(ride_calendar.getTime());

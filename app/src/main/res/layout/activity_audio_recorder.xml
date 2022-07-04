@@ -34,30 +34,36 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.561" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="btnPlayRecording"
-        android:text="Play\nTemporary"
-        android:textSize="30dp"
-        android:theme="@style/Button.Pinkish"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.876" />
-
     <TextView
         android:id="@+id/recordingMessage"
         android:layout_width="204dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="72dp"
         android:text="TextView"
-        android:visibility="gone"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="@+id/button3"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="@+id/button3" />
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/stopRecording"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startRecording" />
+
+    <TextView
+        android:id="@+id/namePassThrough"
+        android:layout_width="336dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="Name wasn't passed through"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/recordingStartTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Audio recording started at:"
+        app:layout_constraintBottom_toTopOf="@+id/startRecording"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/namePassThrough" />
 </androidx.constraintlayout.widget.ConstraintLayout>

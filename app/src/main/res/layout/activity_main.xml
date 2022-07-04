@@ -429,20 +429,6 @@
         app:layout_constraintVertical_bias="0.3"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <Button
-        android:id="@+id/openGoProTemporary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:onClick="openMicTesting"
-        android:text="Open Microphone Testing"
-        android:theme="@style/Button.Pinkish"
-        app:layout_constraintBaseline_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/next_page" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
