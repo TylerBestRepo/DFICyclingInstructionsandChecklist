@@ -244,16 +244,10 @@ public class MainActivity_page_2 extends AppCompatActivity {
     }
 
     public void openMicrophonePage(View v){
-
-
         Intent audioPage = new Intent(this, AudioRecorder.class);
 
-        textToForward = new ArrayList<String>();
-
-        String tempString = participantName.getText().toString();
-
-        textToForward.add(tempString);
-        audioPage.putStringArrayListExtra("nameForward", (ArrayList<String>) textToForward);
+        String tempString = "Billy bob";
+        audioPage.putExtra("KEY",tempString);
         startActivity(audioPage);
     }
 

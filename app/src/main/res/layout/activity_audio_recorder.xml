@@ -6,23 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".AudioRecorder">
 
+    <TextView
+        android:id="@+id/AudioMessage"
+        android:layout_width="288dp"
+        android:layout_height="84dp"
+        android:text="Audio Recording"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/startRecording"
-        android:layout_width="203dp"
-        android:layout_height="82dp"
+        android:layout_width="248dp"
+        android:layout_height="114dp"
         android:onClick="btnRecord"
         android:text="Record"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.284" />
+        app:layout_constraintVertical_bias="0.374" />
+
+    <TextView
+        android:id="@+id/recordingMessage"
+        android:layout_width="204dp"
+        android:layout_height="64dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/stopRecording"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startRecording"
+        app:layout_constraintVertical_bias="0.513" />
 
     <Button
         android:id="@+id/stopRecording"
-        android:layout_width="197dp"
-        android:layout_height="85dp"
+        android:layout_width="233dp"
+        android:layout_height="112dp"
         android:onClick="btnStopRecord"
         android:text="Stop Recording"
         android:textSize="24sp"
@@ -30,40 +59,52 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.561" />
-
-    <TextView
-        android:id="@+id/recordingMessage"
-        android:layout_width="204dp"
-        android:layout_height="64dp"
-        android:text="TextView"
-        android:textSize="20dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/stopRecording"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startRecording" />
-
-    <TextView
-        android:id="@+id/namePassThrough"
-        android:layout_width="336dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="Name wasn't passed through"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintVertical_bias="0.65" />
 
     <TextView
         android:id="@+id/recordingStartTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Audio recording started at:"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/startRecording"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.594" />
+
+    <TextView
+        android:id="@+id/elapsedTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="24sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/startRecording"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/namePassThrough" />
+        app:layout_constraintTop_toBottomOf="@+id/recordingStartTime"
+        app:layout_constraintVertical_bias="0.825" />
+
+    <TextView
+        android:id="@+id/verbalMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="178dp"
+        android:layout_marginBottom="192dp"
+        android:textSize="36sp"
+        android:text="Say the phrase:\n'All devices recording'"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stopRecording" />
 </androidx.constraintlayout.widget.ConstraintLayout>
