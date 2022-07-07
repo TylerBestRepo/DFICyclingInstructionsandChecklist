@@ -140,7 +140,7 @@ public class AudioRecorder extends AppCompatActivity {
         startRecording.setVisibility(View.VISIBLE);
         timerTask.cancel();
         stopRecordingMessage.setText("Recording has been saved!");
-
+        verbalMessage.setVisibility(View.INVISIBLE);
         // Releasing the wake lock to prevent battery drain
         mWakeLock.release();
     }
