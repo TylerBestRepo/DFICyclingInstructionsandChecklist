@@ -1,21 +1,32 @@
 package com.example.dficyclinginstructionsandchecklist;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.media.MediaRecorder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 
 import org.w3c.dom.Text;
@@ -32,6 +43,20 @@ public class AudioRecorder extends AppCompatActivity {
 
     public static final int MIC = 1;
 
+    // Yoinking things from other apps notifications
+    private final static String CHANNEL_ID = "com.com.example.dficyclinginstructionsandchecklist.NotificationId";
+    private final static String CHANNEL_NAME = "Default";
+    private RemoteViews remoteViewsSmall;
+    private PendingIntent contentPendingIntent;
+    private boolean started = false;
+    private static final int NOTIF_ID = 101;
+
+    private NotificationManager mNotificationManager;
+    NotificationCompat.Builder mBuilder;
+
+
+
+
     private MediaRecorder mRecorder;
     private TextView stopRecordingMessage;
     private Button stopRecording, startRecording;
@@ -41,6 +66,11 @@ public class AudioRecorder extends AppCompatActivity {
     private Timer timer;
     private TimerTask timerTask;
     private Double time = 0.0;
+
+
+    private NotificationManager notificationManager;
+
+
 
     // To hopefully keep the audio recording on in the back ground
     private static final String TAG = AudioRecorder.class.getSimpleName();
@@ -63,6 +93,8 @@ public class AudioRecorder extends AppCompatActivity {
         elapsedTime = (TextView)(findViewById(R.id.elapsedTime));
 
         verbalMessage = (TextView)(findViewById(R.id.verbalMessage));
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         timer = new Timer();
 
@@ -94,6 +126,13 @@ public class AudioRecorder extends AppCompatActivity {
             elapsedTime.setText(formatTime(0,0,0));
             startTimer();
 
+            //Keeping the screen on whether it actually keeps the display on or it makes it thinks it does.
+            // Keep checking where this is called in the other app!
+
+            //startForegroundService();
+
+            //makeNotification();
+
             verbalMessage.setVisibility(View.VISIBLE);
 
             Toast.makeText(this, "Recording has been started", Toast.LENGTH_SHORT).show();
@@ -112,6 +151,7 @@ public class AudioRecorder extends AppCompatActivity {
                     public void run() {
                         time++;
                         elapsedTime.setText(getTimerText());
+                        updateBigText();
                     }
                 });
             }
@@ -143,6 +183,17 @@ public class AudioRecorder extends AppCompatActivity {
         verbalMessage.setVisibility(View.INVISIBLE);
         // Releasing the wake lock to prevent battery drain
         mWakeLock.release();
+        // Disabling keeping the screen on
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        //stopForegroundService();
+
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+
+        bigText.bigText("Audio recording has finished started!");
+        mBuilder.setStyle(bigText);
+        mBuilder.setContentTitle("Recording has finished");
+        mNotificationManager.notify(0,mBuilder.build());
+
     }
 
 
@@ -180,5 +231,144 @@ public class AudioRecorder extends AppCompatActivity {
         stopRecordingMessage.setText(date_and_time);
 
         return file.getPath();
+    }
+
+    private void startForegroundService() {
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel(CHANNEL_ID, CHANNEL_NAME);
+        }
+
+        remoteViewsSmall = new RemoteViews(getPackageName(), R.layout.layout_record_notification_small);
+        remoteViewsSmall.setTextViewText(R.id.txt_recording_progress, getResources().getString(R.string.recording_is_on));
+
+//		remoteViewsBig = new RemoteViews(getPackageName(), R.layout.layout_record_notification_big);
+//		remoteViewsBig.setOnClickPendingIntent(R.id.btn_recording_stop, getPendingSelfIntent(getApplicationContext(), ACTION_STOP_RECORDING));
+//		remoteViewsBig.setTextViewText(R.id.txt_recording_progress, TimeUtils.formatTimeIntervalMinSecMills(0));
+//		remoteViewsBig.setInt(R.id.container, "setBackgroundColor", this.getResources().getColor(colorMap.getPrimaryColorRes()));
+
+        contentPendingIntent = createContentIntent();
+        startForeground(NOTIF_ID, buildNotification());
+        started = true;
+    }
+
+    private Notification buildNotification() {
+        // Create notification builder.
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+
+        builder.setWhen(System.currentTimeMillis());
+        builder.setSmallIcon(R.drawable.ic_record_rec);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            builder.setPriority(NotificationManager.IMPORTANCE_MAX);
+        } else {
+            builder.setPriority(Notification.PRIORITY_MAX);
+        }
+        // Make head-up notification.
+        builder.setContentIntent(contentPendingIntent);
+        builder.setCustomContentView(remoteViewsSmall);
+//		builder.setCustomBigContentView(remoteViewsBig);
+        builder.setOnlyAlertOnce(true);
+        builder.setDefaults(0);
+        builder.setSound(null);
+        return builder.build();
+    }
+
+    private void createNotificationChannel(String channelId, String channelName) {
+        NotificationChannel channel = notificationManager.getNotificationChannel(channelId);
+        if (channel == null) {
+            NotificationChannel chan = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+            chan.setLightColor(Color.BLUE);
+            chan.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            chan.setSound(null, null);
+            chan.enableLights(false);
+            chan.enableVibration(false);
+
+            notificationManager.createNotificationChannel(chan);
+        }
+    }
+
+    private PendingIntent createContentIntent() {
+        // Create notification default intent.
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+        return PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+    }
+
+    public final void startForeground(int id, Notification notification) {
+        throw new RuntimeException("Stub!");
+    }
+    public final void stopForeground(boolean removeNotification) {
+        throw new RuntimeException("Stub!");
+    }
+    public final void stopSelf() {
+        throw new RuntimeException("Stub!");
+    }
+
+    private void stopForegroundService() {
+        stopForeground(true);
+        stopSelf();
+        started = false;
+    }
+
+    public void makeNotification(View V) {
+        mBuilder =
+                new NotificationCompat.Builder(this.getApplicationContext(), "notify_001");
+
+        Context context = this.getApplicationContext();
+        Intent ii = new Intent(this.getApplicationContext(), audioNotification.class);
+        ii.setAction(Intent.ACTION_MAIN);
+        ii.addCategory(Intent.CATEGORY_LAUNCHER);
+        ii.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, ii, 0);
+
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+        bigText.bigText("Running for 0:01:45");
+        bigText.setBigContentTitle("Audio recording has started!");
+        bigText.setSummaryText("Audio Recorder");
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
+        mBuilder.setContentTitle("Recording Started");
+
+
+
+        mBuilder.setSilent(true);
+
+        mBuilder.setStyle(bigText);
+
+        mNotificationManager =
+                (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        ii.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+// === Removed some obsoletes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "Your_channel_id";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            mNotificationManager.createNotificationChannel(channel);
+            mBuilder.setChannelId(channelId);
+        }
+        mNotificationManager.notify(0, mBuilder.build());
+    }
+
+    public void updateBigText(){
+        mBuilder.setContentTitle(getTimerText());
+
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+
+        String concat = "Running for " + getTimerText();
+        bigText.bigText("Audio recording has started!");
+        bigText.setBigContentTitle(concat);
+        bigText.setSummaryText("Audio Recorder");
+
+        mBuilder.setStyle(bigText);
+        mBuilder.setSilent(true);
+
+        mNotificationManager.notify(0,mBuilder.build());
     }
 }
