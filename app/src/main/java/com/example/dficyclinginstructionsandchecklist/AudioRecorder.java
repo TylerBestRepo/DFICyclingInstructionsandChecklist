@@ -102,21 +102,21 @@ public class AudioRecorder extends AppCompatActivity {
             getMicrophonePermission();
         }
 
+
     }
 
     public void btnRecord(View v){
         
         try {
-            mRecorder = new MediaRecorder();
-            mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC);
-            mRecorder.setAudioEncodingBitRate(384000);
-            mRecorder.setAudioSamplingRate(44100);
+            Intent intent = new Intent(this,myForegroundService.class);
+            intent.setAction(myForegroundService.ACTION_START_RECORDING_SERVICE);
 
-            mRecorder.setOutputFile(getRecordingFilePath());
-            mRecorder.prepare();
-            mRecorder.start();
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                startForegroundService(intent);
+            }
+            else {
+                startService(intent);
+            }
 
             stopRecording.setVisibility(View.VISIBLE);
             startRecording.setVisibility(View.INVISIBLE);
@@ -125,13 +125,10 @@ public class AudioRecorder extends AppCompatActivity {
             time = 0.0;
             elapsedTime.setText(formatTime(0,0,0));
             startTimer();
+            recordingMessage();
 
             //Keeping the screen on whether it actually keeps the display on or it makes it thinks it does.
             // Keep checking where this is called in the other app!
-
-            //startForegroundService();
-
-            //makeNotification();
 
             verbalMessage.setVisibility(View.VISIBLE);
 
@@ -151,7 +148,6 @@ public class AudioRecorder extends AppCompatActivity {
                     public void run() {
                         time++;
                         elapsedTime.setText(getTimerText());
-                        updateBigText();
                     }
                 });
             }
@@ -172,27 +168,15 @@ public class AudioRecorder extends AppCompatActivity {
     }
 
     public void btnStopRecord(View V){
-        mRecorder.stop();
-        mRecorder.release();
-        mRecorder = null;
+        Intent intent = new Intent(this,myForegroundService.class);
+        intent.setAction(myForegroundService.ACTION_STOP_RECORDING_SERVICE);
+        startForegroundService(intent);
         Toast.makeText(this, "Recording has been stopped successfully", Toast.LENGTH_SHORT).show();
         stopRecording.setVisibility(View.GONE);
         startRecording.setVisibility(View.VISIBLE);
         timerTask.cancel();
         stopRecordingMessage.setText("Recording has been saved!");
         verbalMessage.setVisibility(View.INVISIBLE);
-        // Releasing the wake lock to prevent battery drain
-        mWakeLock.release();
-        // Disabling keeping the screen on
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        //stopForegroundService();
-
-        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-
-        bigText.bigText("Audio recording has finished started!");
-        mBuilder.setStyle(bigText);
-        mBuilder.setContentTitle("Recording has finished");
-        mNotificationManager.notify(0,mBuilder.build());
 
     }
 
@@ -209,8 +193,7 @@ public class AudioRecorder extends AppCompatActivity {
 
     }
 
-    private String getRecordingFilePath() {
-        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
+    private void recordingMessage() {
         Calendar ride_calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String current_date = simpleDateFormat.format(ride_calendar.getTime());
@@ -219,7 +202,6 @@ public class AudioRecorder extends AppCompatActivity {
 
         String current_time = twenty4HRtime.format(ride_calendar.getTime());
         String date_and_time = current_date + " " + current_time;
-        File file = new File(path,date_and_time + ".m4a");
 
         SimpleDateFormat diffFormat = new SimpleDateFormat("HH:mm:ss");
         String current_time_diffFormat = diffFormat.format(ride_calendar.getTime());
@@ -229,29 +211,8 @@ public class AudioRecorder extends AppCompatActivity {
         recordingStartTime.setText(concatenated_message_time);
 
         stopRecordingMessage.setText(date_and_time);
-
-        return file.getPath();
     }
 
-    private void startForegroundService() {
-        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel(CHANNEL_ID, CHANNEL_NAME);
-        }
-
-        remoteViewsSmall = new RemoteViews(getPackageName(), R.layout.layout_record_notification_small);
-        remoteViewsSmall.setTextViewText(R.id.txt_recording_progress, getResources().getString(R.string.recording_is_on));
-
-//		remoteViewsBig = new RemoteViews(getPackageName(), R.layout.layout_record_notification_big);
-//		remoteViewsBig.setOnClickPendingIntent(R.id.btn_recording_stop, getPendingSelfIntent(getApplicationContext(), ACTION_STOP_RECORDING));
-//		remoteViewsBig.setTextViewText(R.id.txt_recording_progress, TimeUtils.formatTimeIntervalMinSecMills(0));
-//		remoteViewsBig.setInt(R.id.container, "setBackgroundColor", this.getResources().getColor(colorMap.getPrimaryColorRes()));
-
-        contentPendingIntent = createContentIntent();
-        startForeground(NOTIF_ID, buildNotification());
-        started = true;
-    }
 
     private Notification buildNotification() {
         // Create notification builder.
@@ -293,22 +254,6 @@ public class AudioRecorder extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
         return PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-    }
-
-    public final void startForeground(int id, Notification notification) {
-        throw new RuntimeException("Stub!");
-    }
-    public final void stopForeground(boolean removeNotification) {
-        throw new RuntimeException("Stub!");
-    }
-    public final void stopSelf() {
-        throw new RuntimeException("Stub!");
-    }
-
-    private void stopForegroundService() {
-        stopForeground(true);
-        stopSelf();
-        started = false;
     }
 
     public void makeNotification(View V) {

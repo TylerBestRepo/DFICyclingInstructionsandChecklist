@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable-v24/ic_pause.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable-v24/ic_stop.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/ic_record_rec.xml" value="0.2085" />
+        <entry key="app/src/main/res/layout/activity_alt_audio_recording.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/activity_attach_go_pro.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_audio_notification.xml" value="0.28072916666666664" />
         <entry key="app/src/main/res/layout/activity_audio_recorder.xml" value="0.2543822146216332" />
@@ -29,6 +30,7 @@
         <entry key="app/src/main/res/layout/activity_pop_up.xml" value="0.18645833333333334" />
         <entry key="app/src/main/res/layout/activity_save_audio_help.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_save_video_help.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_test.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_weather_pull.xml" value="0.3941893223154315" />
         <entry key="app/src/main/res/layout/layout_record_notification_small.xml" value="0.335" />
       </map>

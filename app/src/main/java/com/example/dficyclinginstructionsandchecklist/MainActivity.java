@@ -89,6 +89,14 @@ public class MainActivity extends AppCompatActivity {
         IDinput.setText("");
         //save_data = (Button)(findViewById(R.id.save_data));
 
+        if (!isTaskRoot()
+                && getIntent().hasCategory(Intent.CATEGORY_LAUNCHER)
+                && getIntent().getAction() != null
+                && getIntent().getAction().equals(Intent.ACTION_MAIN)) {
+            finish();
+            return;
+        }
+
 
         //Pulling and displaying the current date
         ride_date_time = (TextView)(findViewById(R.id.ride_date));
@@ -339,8 +347,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openMicTesting(View v){
-        Intent audioTesting = new Intent(this, AudioRecorder.class);
-        startActivity(audioTesting);
+
+    }
+
+    public void openForegroundTesting(View V) {
+        Intent testActivity = new Intent(this, testActivity.class);
+        startActivity(testActivity);
     }
 }
 
