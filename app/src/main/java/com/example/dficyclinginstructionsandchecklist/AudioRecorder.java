@@ -316,4 +316,5 @@ public class AudioRecorder extends AppCompatActivity {
 
         mNotificationManager.notify(0,mBuilder.build());
     }
+
 }
