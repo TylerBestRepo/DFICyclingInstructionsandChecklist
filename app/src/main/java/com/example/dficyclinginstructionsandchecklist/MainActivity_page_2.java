@@ -145,16 +145,16 @@ public class MainActivity_page_2 extends AppCompatActivity {
         current_date = simpleDateFormat.format(ride_calendar.getTime());
 
         textToSave.append("Date of ride, ").append(current_date).append("\n");
-        textToSave.append("Empatica baseline recording completed, ").append(information.get(11)).append("\n");
-        textToSave.append("Attached face angled GoPro, ").append(information.get(2)).append("\n");
-        textToSave.append("Forward facing GoPro attached,").append(information.get(3)).append("\n");
-        textToSave.append("Microphone attached,").append(information.get(4)).append("\n");
-        textToSave.append("GPS + mount attached,").append(information.get(5)).append("\n");
-        textToSave.append("GoPro angle has been checked,").append(information.get(6)).append("\n");
-        textToSave.append("HRV monitor has been attached,").append(information.get(7)).append("\n");
-        textToSave.append("Empatica device properly attached,").append(information.get(8)).append("\n");
-        textToSave.append("HRV activity started,").append(information.get(9)).append("\n");
-        //textToSave.append("Bike computer activity started,").append(information.get(10)).append("\n");
+        textToSave.append("Baseline readings performed,").append(information.get(2)).append("\n");
+        textToSave.append("Attached lapel microphone,").append(information.get(3)).append("\n");
+        textToSave.append("Attached watch to wrist and device is powered on and recording in the Empatica E4 app,").append(information.get(4)).append("\n");
+        textToSave.append("Attached heart rate monitor to chest,").append(information.get(5)).append("\n");
+        textToSave.append("Attached face angled GoPro,").append(information.get(6)).append("\n");
+        textToSave.append("Attached forward facing GoPro,").append(information.get(7)).append("\n");
+        textToSave.append("Attached bike computer to bike,").append(information.get(8)).append("\n");
+        textToSave.append("Bike computer is set to outdoor cycling mode,").append(information.get(9)).append("\n");
+        textToSave.append("Heart rate monitor is successfully paired with bike computer,").append(information.get(10)).append("\n");
+        textToSave.append("Bike computer gained 100% GPS signal,").append(information.get(11)).append("\n");
         //Saving the video and audio start times
         textToSave.append("GPS started at,").append(GPS_dateTime).append('\n');
         textToSave.append("Video started at,").append(video_dateTime).append('\n');

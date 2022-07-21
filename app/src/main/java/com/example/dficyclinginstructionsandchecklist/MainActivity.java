@@ -35,28 +35,33 @@ public class MainActivity extends AppCompatActivity {
     //GPS variables
     private String latitude_num = " ",longitude_num = " ";
 
-    private CheckBox goProCheck;
-    private CheckBox micCheck;
-    private CheckBox GpsCheck;
-    private CheckBox goProAngleCheck;
-    private CheckBox HRVmonitorCheck;
-    private CheckBox FitBickCheck;
-    private CheckBox forwardGoProCheck;
+    private CheckBox lapelMicCheck;
+    private CheckBox heartRateCheck;
+    private CheckBox goProFaceCheck;
+    private CheckBox goProForwardCheck;
+    private CheckBox GPSCheck;
+    private CheckBox HRVPairedCheck;
+    private CheckBox empaticaCheck;
     private CheckBox bikeActivityStartCheck;
     private CheckBox empaticaAttachCheck;
-    private CheckBox empaticaBaselineCheck;
+    private CheckBox baselineCheck;
+    private CheckBox bikeComputerModeCheck;
+    private CheckBox GPSSignalCheck;
     //Boolean variables for if the check marks have been ticked
-    private Boolean goProCheckBool = false;
-    private Boolean micCheckBool = false;
-    private Boolean GpsCheckBool = false;
-    private Boolean goProAngleCheckBool = false;
-    private Boolean HRVmonitorCheckBool = false;
+    private Boolean lapelMicCheckBool = false;
+    private Boolean heartRateBool = false;
+    private Boolean goProFaceBool = false;
+    private Boolean goProForwardBool = false;
+    private Boolean GPSCheckBool = false;
     private Boolean hrvAPPstartBool = false;
-    private Boolean forwardGoProBool = false;
+    private Boolean empaticaBool = false;
     private Boolean bikeActivityStartBool = false;
     private Boolean empaticaActivityBool = false;
-    private Boolean empaticaBaselineBool = false;
+    private Boolean baselineBool = false;
+    private Boolean bikeComputerModeBool = false;
     private EditText IDinput;
+    private Boolean HRVPairedBool = false;
+    private Boolean GPSSignalBool = false;
     private TextView ride_date_time;
     private String current_date;
 
@@ -66,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Make sure the pop up message at the start doesn't show up more than once per use
     private Boolean startMessageShown = false;
-
+    private Boolean secondStartMessageShown = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +79,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //GPS and weather
         // Getting the checkbox stuff properly
-        goProCheck = (CheckBox)(findViewById(R.id.goProCheck));
-        micCheck = (CheckBox)(findViewById(R.id.micCheck));
-        GpsCheck = (CheckBox)(findViewById(R.id.GpsCheck));
-        goProAngleCheck = (CheckBox)(findViewById(R.id.goProAngleCheck));
-        HRVmonitorCheck = (CheckBox)(findViewById(R.id.HRVmonitorCheck));
-        FitBickCheck = (CheckBox)(findViewById(R.id.fitbitcheck));
-        forwardGoProCheck = (CheckBox)(findViewById(R.id.forwardGoProCheck));
-        bikeActivityStartCheck = (CheckBox)(findViewById(R.id.bikeActivityStartCheck));
+        lapelMicCheck = (CheckBox)(findViewById(R.id.lapelMicCheck));
+        heartRateCheck = (CheckBox)(findViewById(R.id.heartRateCheck));
+        goProFaceCheck = (CheckBox)(findViewById(R.id.goProFaceCheck));
+        goProForwardCheck = (CheckBox)(findViewById(R.id.goProForwardCheck));
+        GPSCheck = (CheckBox)(findViewById(R.id.GPSCheck));
+        HRVPairedCheck = (CheckBox)(findViewById(R.id.HRVPairedCheck));
+        empaticaCheck = (CheckBox)(findViewById(R.id.empaticaCheck));
         empaticaAttachCheck = (CheckBox)(findViewById(R.id.empaticaCheck));
-        empaticaBaselineCheck = (CheckBox)(findViewById(R.id.empaticaBaselineCheck));
+        baselineCheck = (CheckBox)(findViewById(R.id.baselineCheck));
+        bikeComputerModeCheck = (CheckBox)(findViewById(R.id.bikeComputerModeCheck));
+        GPSSignalCheck = (CheckBox)(findViewById(R.id.GPSSignalCheck));
 
         IDinput = (EditText)(findViewById(R.id.IDinput));
         IDinput.setText("");
@@ -109,48 +115,41 @@ public class MainActivity extends AppCompatActivity {
             alertDialog();
         }
 
-        goProCheck.setOnClickListener(new View.OnClickListener() {
+        if(!secondStartMessageShown){
+            alertDialogNumberTwo();
+        }
+
+        lapelMicCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goProCheckBool = !goProCheckBool;
+                lapelMicCheckBool = !lapelMicCheckBool;
             }
         });
-        forwardGoProCheck.setOnClickListener(new View.OnClickListener() {
+        empaticaCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                forwardGoProBool = !forwardGoProBool;
+                empaticaBool = !empaticaBool;
             }
         });
-        micCheck.setOnClickListener(new View.OnClickListener() {
+        heartRateCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                micCheckBool = !micCheckBool;
+                heartRateBool = !heartRateBool;
             }
         });
-        GpsCheck.setOnClickListener(new View.OnClickListener() {
+        goProForwardCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GpsCheckBool = !GpsCheckBool;
+                goProForwardBool = !goProForwardBool;
             }
         });
-        goProAngleCheck.setOnClickListener(new View.OnClickListener() {
+        GPSCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goProAngleCheckBool = !goProAngleCheckBool;
+                GPSCheckBool = !GPSCheckBool;
             }
         });
-        HRVmonitorCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HRVmonitorCheckBool = !HRVmonitorCheckBool;
-            }
-        });
-        FitBickCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hrvAPPstartBool = !hrvAPPstartBool;
-            }
-        });
+
         bikeActivityStartCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,12 +162,41 @@ public class MainActivity extends AppCompatActivity {
                 empaticaActivityBool = !empaticaActivityBool;
             }
         });
-        empaticaBaselineCheck.setOnClickListener(new View.OnClickListener() {
+        baselineCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                empaticaBaselineBool = !empaticaBaselineBool;
+                baselineBool = !baselineBool;
             }
         });
+
+        goProFaceCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goProFaceBool = !goProFaceBool;
+            }
+        });
+        ;
+        bikeComputerModeCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bikeComputerModeBool = !bikeComputerModeBool;
+            }
+        });
+        HRVPairedCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HRVPairedBool = !HRVPairedBool;
+            }
+        });
+        ;
+        GPSSignalCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GPSSignalBool = !GPSSignalBool;
+            }
+        });
+
+
     }
 
 
@@ -182,6 +210,31 @@ public class MainActivity extends AppCompatActivity {
                 + "\n\n4.Make sure not to leave the equipment lying around please! It is expensive and people" +
                 " will want to steal it if you leave it out\n\n" + "If you've already done this you can skip"+
                 "straight to the incident recording page");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startMessageShown = true;
+            }
+        });
+        builder.setNeutralButton("Incident Recording", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startMessageShown = true;
+                openIncidentPage();
+            }
+        });
+
+        builder.show();
+    }
+
+    public void alertDialogNumberTwo(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setCancelable(true);
+        builder.setTitle("Baseline readings");
+
+        String messageString = getResources().getString(R.string.fiveMinutePrepInstructions);
+        builder.setMessage(messageString);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -258,69 +311,64 @@ public class MainActivity extends AppCompatActivity {
             textToForward.add(participant_name);
             textToForward.add(date);
 
-            if (goProCheckBool) {
-                //textToSave.append("Attached GoPro, True\n");
+            if (baselineBool) {
+                //textToSave.append("Attached Baseline check, True\n");
                 textToForward.add("True");
             } else {
-                //textToSave.append("Attached GoPro, False\n");
                 textToForward.add("False");
             }
-            if (forwardGoProBool) {
-                //textToSave.append("Forward facing GoPro attached, True\n");
+            if (lapelMicCheckBool) {
+                //textToSave.append("Attached lapel microphone, True\n");
                 textToForward.add("True");
             } else {
-                //textToSave.append("Forward facing GoPro attached, False\n");
                 textToForward.add("False");
             }
-            if (micCheckBool) {
-                //textToSave.append("Microphone attached, True\n");
+            if (empaticaBool) {
+                //textToSave.append("attached Empatica, True\n");
                 textToForward.add("True");
             } else {
-                //textToSave.append("Microphone attached, False\n");
                 textToForward.add("False");
             }
-            if (GpsCheckBool) {
-                //textToSave.append("GPS + mount attached, True\n");
+            if (heartRateBool) {
+                //textToSave.append("attahced hrv to chest, True\n");
                 textToForward.add("True");
             } else {
-                //textToSave.append("GPS + mount attached, False\n");
                 textToForward.add("False");
             }
-            if (goProAngleCheckBool) {
-                //textToSave.append("GoPro angle has been checked, True\n");
+            if (goProFaceBool) {
+                //textToSave.append("face angled gopro attached, True\n");
                 textToForward.add("True");
             } else {
-                //textToSave.append("GoPro angle has been checked, False\n");
                 textToForward.add("False");
             }
-            if (HRVmonitorCheckBool) {
-                //textToSave.append("HRV monitor has been attached, True\n");
+            if (goProForwardBool) {
+                //textToSave.append("attached forward facing gopro, True\n");
                 textToForward.add("True");
             } else {
-                //textToSave.append("HRV monitor has been attached, False\n");
                 textToForward.add("False");
             }
-            if(empaticaActivityBool){
+            if(GPSCheckBool){
                 textToForward.add("True");
+                //textToSave.append("attached bike computer to bike, True\n");
+
             }else{
                 textToForward.add("False");
             }
-            if (hrvAPPstartBool) {
-                //textToSave.append("HRV activity started, True\n");
+            if (bikeComputerModeBool) {
+                //textToSave.append("bike computer set to outdoor cycling mode, True\n");
                 textToForward.add("True");
             } else {
-                //textToSave.append("HRV activity started, False\n");
                 textToForward.add("False");
             }
-            if (bikeActivityStartBool) {
-                //textToSave.append("Bike computer activity started, True\n");
+            if (HRVPairedBool) {
+                //textToSave.append("HRV paired to bike computer, True\n");
                 textToForward.add("True");
             } else {
-                //textToSave.append("Bike computer activity started, False\n");
                 textToForward.add("False");
             }
-            if (empaticaBaselineBool){
+            if (GPSSignalBool){
                 textToForward.add("True");
+                //textToSave.append("Bike computer paired to gps, True\n");
             }else {
                 textToForward.add("False");
             }
@@ -347,10 +395,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void openForegroundTesting(View V) {
-        Intent testActivity = new Intent(this, testActivity.class);
-        startActivity(testActivity);
-    }
 }
 
 

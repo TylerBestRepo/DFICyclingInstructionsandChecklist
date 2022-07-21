@@ -23,9 +23,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DFICyclingInstructionsAndChecklist">
         <activity
-            android:name=".testActivity"
-            android:exported="false" />
-        <activity
             android:name=".audioNotification"
             android:exported="false" />
         <activity
