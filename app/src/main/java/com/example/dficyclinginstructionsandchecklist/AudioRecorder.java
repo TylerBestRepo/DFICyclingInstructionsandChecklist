@@ -1,6 +1,7 @@
 package com.example.dficyclinginstructionsandchecklist;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -12,6 +13,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -54,10 +56,8 @@ public class AudioRecorder extends AppCompatActivity {
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder mBuilder;
 
-
-
-
     private MediaRecorder mRecorder;
+    private TextView AudioTopMessage;
     private TextView stopRecordingMessage;
     private Button stopRecording, startRecording;
     private TextView recordingStartTime;
@@ -66,6 +66,8 @@ public class AudioRecorder extends AppCompatActivity {
     private Timer timer;
     private TimerTask timerTask;
     private Double time = 0.0;
+
+    private Boolean startMessageShown = false;
 
 
     private NotificationManager notificationManager;
@@ -91,6 +93,7 @@ public class AudioRecorder extends AppCompatActivity {
         stopRecordingMessage = (TextView)(findViewById(R.id.recordingMessage));
         recordingStartTime = (TextView) (findViewById(R.id.recordingStartTime));
         elapsedTime = (TextView)(findViewById(R.id.elapsedTime));
+        AudioTopMessage = (TextView)(findViewById(R.id.AudioMessage));
 
         verbalMessage = (TextView)(findViewById(R.id.verbalMessage));
 
@@ -100,6 +103,10 @@ public class AudioRecorder extends AppCompatActivity {
 
         if (isMicrophonePresent()){
             getMicrophonePermission();
+        }
+
+        if(!startMessageShown){
+            alertDialog();
         }
 
 
@@ -127,6 +134,9 @@ public class AudioRecorder extends AppCompatActivity {
             startTimer();
             recordingMessage();
 
+            AudioTopMessage.setVisibility(View.INVISIBLE);
+
+
             //Keeping the screen on whether it actually keeps the display on or it makes it thinks it does.
             // Keep checking where this is called in the other app!
 
@@ -136,6 +146,12 @@ public class AudioRecorder extends AppCompatActivity {
         } catch(Exception e) {
             e.printStackTrace();
         }
+
+        /*Probably going to get the app to immediately go to the next "Main Page" after hitting record
+         To prevent any annoying coding shenanigans
+         */
+        Intent straightToMainPage = new Intent(this,MainActivity.class);
+        startActivity(straightToMainPage);
         
     }
 
@@ -315,6 +331,22 @@ public class AudioRecorder extends AppCompatActivity {
         mBuilder.setSilent(true);
 
         mNotificationManager.notify(0,mBuilder.build());
+    }
+
+    public void alertDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(AudioRecorder.this);
+        builder.setCancelable(true);
+        builder.setTitle("Welcome!");
+        String messageString = getResources().getString(R.string.AudioPopUpString);
+
+        builder.setMessage(messageString);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startMessageShown = true;
+            }
+        });
+        builder.show();
     }
 
 }

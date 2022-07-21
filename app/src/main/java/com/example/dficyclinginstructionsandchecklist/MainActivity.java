@@ -346,9 +346,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(baseline_help);
     }
 
-    public void openMicTesting(View v){
-
-    }
 
     public void openForegroundTesting(View V) {
         Intent testActivity = new Intent(this, testActivity.class);

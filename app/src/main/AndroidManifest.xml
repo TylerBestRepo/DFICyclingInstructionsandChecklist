@@ -33,8 +33,13 @@
             android:exported="false" />
         <activity
             android:name=".AudioRecorder"
-            android:exported="false"
-            android:launchMode="singleInstance" />
+            android:exported="true"
+            android:launchMode="singleInstance" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".EmapticaBaselineHelp"
             android:exported="false" />
@@ -82,11 +87,6 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="Setup and Checklist">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service
