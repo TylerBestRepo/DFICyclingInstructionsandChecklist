@@ -12,8 +12,8 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="9. Bike computer successfully gained \n    GPS signal (icon is 100%)"
+        android:layout_marginTop="10dp"
+        android:text="9. Bike computer successfully \n    gained GPS signal (icon is 100%)"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -25,25 +25,10 @@
         android:text=""
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView6"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bikeComputerModeCheck"
+        app:layout_constraintStart_toStartOf="@+id/bikeComputerModeCheck"
         app:layout_constraintTop_toTopOf="@+id/textView6"
         app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/fitbit_help2"
-        android:layout_width="39dp"
-        android:layout_height="37dp"
-        android:fontFamily="cursive"
-        android:onClick="hrv_recording_help"
-        android:text="i"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="@+id/textView6"
-        app:layout_constraintEnd_toEndOf="@+id/gopro_help"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/HRV_help"
-        app:layout_constraintTop_toTopOf="@+id/textView6"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/textView6"
@@ -121,7 +106,8 @@
         android:text=""
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView7"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/goProFaceCheck"
+        app:layout_constraintStart_toStartOf="@+id/goProFaceCheck"
         app:layout_constraintTop_toTopOf="@+id/textView7"
         app:layout_constraintVertical_bias="0.318" />
 
@@ -149,21 +135,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <Button
-        android:id="@+id/gopro_help"
-        android:layout_width="39dp"
-        android:layout_height="37dp"
-        android:layout_marginEnd="25dp"
-        android:fontFamily="cursive"
-        android:onClick="goProAnglingHelp"
-        android:text="i"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="@+id/textView7"
-        app:layout_constraintEnd_toStartOf="@+id/goProForwardCheck"
-        app:layout_constraintTop_toTopOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.266"
-        tools:ignore="TouchTargetSizeCheck" />
-
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
@@ -184,9 +155,10 @@
         android:onClick="goProAttachHelp"
         android:text="i"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/mic_help"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/HRV_help"
+        app:layout_constraintTop_toTopOf="@+id/textView4"
         tools:ignore="TouchTargetSizeCheck" />
 
     <Button
@@ -198,40 +170,24 @@
         android:text="i"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
-        app:layout_constraintStart_toStartOf="@+id/mic_help"
+        app:layout_constraintStart_toStartOf="@+id/emaptica_help"
         app:layout_constraintTop_toTopOf="@+id/textView12"
         app:layout_constraintVertical_bias="0.3"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <Button
-        android:id="@+id/mic_help"
-        android:layout_width="39dp"
-        android:layout_height="37dp"
-        android:fontFamily="cursive"
-
-        android:onClick="micAttachHelp"
-        android:text="i"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/gopro_help"
-        app:layout_constraintTop_toTopOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.266"
         tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/gopro_2_help"
         android:layout_width="39dp"
         android:layout_height="37dp"
-        android:layout_marginTop="10dp"
 
         android:fontFamily="cursive"
         android:onClick="goproforwardHelp"
         android:text="i"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/gopro_help"
-        app:layout_constraintTop_toTopOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.6"
+
+        app:layout_constraintBottom_toBottomOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="@+id/gopro_help_1"
+        app:layout_constraintTop_toTopOf="@+id/textView7"
         tools:ignore="TouchTargetSizeCheck" />
 
     <CheckBox
@@ -241,7 +197,8 @@
         android:text=""
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/empaticaCheck"
+        app:layout_constraintStart_toStartOf="@+id/empaticaCheck"
         app:layout_constraintTop_toTopOf="@+id/textView3"
         app:layout_constraintVertical_bias="0.318" />
 
@@ -261,7 +218,7 @@
         android:layout_width="261dp"
         android:layout_height="42dp"
         android:layout_marginTop="20dp"
-        android:text="Performed baseline readings for 5 minutes"
+        android:text="Performed baseline readings\nfor 5 minutes"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView2"
@@ -278,20 +235,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <Button
-        android:id="@+id/gps_help"
-        android:layout_width="39dp"
-        android:layout_height="37dp"
-        android:fontFamily="cursive"
-        android:onClick="bikeComputerMountHelp"
-        android:text="i"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/gopro_help"
-        app:layout_constraintTop_toTopOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.533"
-        tools:ignore="TouchTargetSizeCheck" />
-
     <CheckBox
         android:id="@+id/GPSSignalCheck"
         android:layout_width="38dp"
@@ -299,7 +242,8 @@
         android:text=""
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView13"
-        app:layout_constraintEnd_toEndOf="@+id/HRVPairedCheck2"
+        app:layout_constraintEnd_toEndOf="@+id/HRVPairedCheck"
+        app:layout_constraintStart_toStartOf="@+id/HRVPairedCheck"
         app:layout_constraintTop_toTopOf="@+id/textView13"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -310,7 +254,8 @@
         android:text=""
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView5"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/GPSCheck"
+        app:layout_constraintStart_toStartOf="@+id/GPSCheck"
         app:layout_constraintTop_toTopOf="@+id/textView5"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -318,15 +263,14 @@
         android:id="@+id/HRV_help"
         android:layout_width="39dp"
         android:layout_height="37dp"
+        android:layout_marginEnd="17dp"
         android:fontFamily="cursive"
         android:onClick="HRV_attach_help"
         android:text="i"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="@+id/textView8"
-        app:layout_constraintEnd_toEndOf="@+id/gopro_help"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/gopro_help"
-        app:layout_constraintTop_toTopOf="@+id/textView8"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/heartRateCheck"
+        app:layout_constraintTop_toTopOf="@+id/textView3"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -338,6 +282,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/goProForwardCheck"
         app:layout_constraintTop_toTopOf="@+id/textView8"
         app:layout_constraintVertical_bias="0.181" />
 
@@ -372,6 +317,7 @@
         android:id="@+id/lapelMicCheck"
         android:layout_width="38dp"
         android:layout_height="44dp"
+        android:layout_marginEnd="5dp"
         android:text=""
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView2"
@@ -382,6 +328,7 @@
         android:id="@+id/baselineCheck"
         android:layout_width="38dp"
         android:layout_height="44dp"
+        android:layout_marginEnd="5dp"
         android:text=""
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/emaptica_baseline_help"
@@ -394,32 +341,19 @@
         android:id="@+id/empaticaCheck"
         android:layout_width="38dp"
         android:layout_height="44dp"
+        android:layout_marginEnd="5dp"
         android:text=""
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/lapelMicCheck"
         app:layout_constraintTop_toTopOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/fitbit_help"
-        android:layout_width="39dp"
-        android:layout_height="37dp"
-        android:fontFamily="cursive"
-        android:onClick="hrv_recording_help"
-        android:text="i"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="@+id/textView13"
-        app:layout_constraintEnd_toEndOf="@+id/gopro_help"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/HRV_help"
-        app:layout_constraintTop_toTopOf="@+id/textView13"
-        tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/ride_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="57dp"
+        android:layout_marginStart="35dp"
         android:text="Current date:"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/participantID"
@@ -435,9 +369,9 @@
         android:onClick="openEmpaticaBaselineHelp"
         android:text="i"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/HRV_help"
-        app:layout_constraintTop_toTopOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/textView"
         app:layout_constraintVertical_bias="0.3"
         tools:ignore="TouchTargetSizeCheck" />
 

@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private List<String> textToForward;
@@ -75,8 +76,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);try
+        {
+            Objects.requireNonNull(this.getSupportActionBar()).hide();
+        }
+        catch (NullPointerException e){}
+
         setContentView(R.layout.activity_main);
+
         //GPS and weather
         // Getting the checkbox stuff properly
         lapelMicCheck = (CheckBox)(findViewById(R.id.lapelMicCheck));
@@ -105,128 +112,32 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Pulling and displaying the current date
-        ride_date_time = (TextView)(findViewById(R.id.ride_date));
+        ride_date_time = findViewById(R.id.ride_date);
         Calendar ride_calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         current_date = simpleDateFormat.format(ride_calendar.getTime());
         ride_date_time.setText(current_date);
 
-        if(!startMessageShown){
-            alertDialog();
-        }
 
         if(!secondStartMessageShown){
             alertDialogNumberTwo();
         }
 
-        lapelMicCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lapelMicCheckBool = !lapelMicCheckBool;
-            }
-        });
-        empaticaCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                empaticaBool = !empaticaBool;
-            }
-        });
-        heartRateCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                heartRateBool = !heartRateBool;
-            }
-        });
-        goProForwardCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goProForwardBool = !goProForwardBool;
-            }
-        });
-        GPSCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GPSCheckBool = !GPSCheckBool;
-            }
-        });
-
-        bikeActivityStartCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bikeActivityStartBool = !bikeActivityStartBool;
-            }
-        });
-        empaticaAttachCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                empaticaActivityBool = !empaticaActivityBool;
-            }
-        });
-        baselineCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                baselineBool = !baselineBool;
-            }
-        });
-
-        goProFaceCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goProFaceBool = !goProFaceBool;
-            }
-        });
-        ;
-        bikeComputerModeCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bikeComputerModeBool = !bikeComputerModeBool;
-            }
-        });
-        HRVPairedCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HRVPairedBool = !HRVPairedBool;
-            }
-        });
-        ;
-        GPSSignalCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GPSSignalBool = !GPSSignalBool;
-            }
-        });
+        lapelMicCheck.setOnClickListener(v -> lapelMicCheckBool = !lapelMicCheckBool);
+        empaticaCheck.setOnClickListener(v -> empaticaBool = !empaticaBool);
+        heartRateCheck.setOnClickListener(v -> heartRateBool = !heartRateBool);
+        goProForwardCheck.setOnClickListener(v -> goProForwardBool = !goProForwardBool);
+        GPSCheck.setOnClickListener(v -> GPSCheckBool = !GPSCheckBool);
+        empaticaAttachCheck.setOnClickListener(v -> empaticaActivityBool = !empaticaActivityBool);
+        baselineCheck.setOnClickListener(v -> baselineBool = !baselineBool);
+        goProFaceCheck.setOnClickListener(v -> goProFaceBool = !goProFaceBool);
+        bikeComputerModeCheck.setOnClickListener(v -> bikeComputerModeBool = !bikeComputerModeBool);
+        HRVPairedCheck.setOnClickListener(v -> HRVPairedBool = !HRVPairedBool);
+        GPSSignalCheck.setOnClickListener(v -> GPSSignalBool = !GPSSignalBool);
 
 
     }
 
-
-    public void alertDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setCancelable(true);
-        builder.setTitle("Please Read before continuing");
-        builder.setMessage("1.It's extremely important you perform the baseline reading before you go on your ride\n"
-                +"\n2.Ensure you have replaced the GoPro SD card if necessary\n\n3.Also check to see if the" +
-                "GoPro has enough battery to last the rides you plan on doing today"
-                + "\n\n4.Make sure not to leave the equipment lying around please! It is expensive and people" +
-                " will want to steal it if you leave it out\n\n" + "If you've already done this you can skip"+
-                "straight to the incident recording page");
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startMessageShown = true;
-            }
-        });
-        builder.setNeutralButton("Incident Recording", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startMessageShown = true;
-                openIncidentPage();
-            }
-        });
-
-        builder.show();
-    }
 
     public void alertDialogNumberTwo(){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);

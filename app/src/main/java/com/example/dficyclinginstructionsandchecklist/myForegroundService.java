@@ -28,6 +28,8 @@ import org.w3c.dom.Text;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class myForegroundService extends Service
 {
@@ -39,6 +41,12 @@ public class myForegroundService extends Service
 
 
     private static final String TAG = "V.General";
+    private TimerTask timerTask;
+    private Timer timer;
+    private Notification notification;
+
+    private Double time = 0.0;
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -57,17 +65,19 @@ public class myForegroundService extends Service
             }
         }
 
+
         Intent intent1 = new Intent(this, AudioRecorder.class);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent1,0);
 
-        Notification notification = new NotificationCompat.Builder(this, "ChannelId1")
+        notification = new NotificationCompat.Builder(this, "ChannelId1")
                 .setContentTitle("My Audio recorder")
                 .setContentText("Audio is recording")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent).build();
 
         startForeground(1,notification);
+
 
 
         return START_STICKY;
@@ -129,6 +139,10 @@ public class myForegroundService extends Service
                 //makeNotification();
                 Log.i(TAG, "precursor: Recording should be starting now!");
                 Toast.makeText(this, "Recording has been started", Toast.LENGTH_SHORT).show();
+
+                // Starting the timer in the background too so the notification can be easily updated
+                startTimer();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -170,5 +184,28 @@ public class myForegroundService extends Service
 
         return file.getPath();
     }
+
+    private void startTimer() {
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                time++;
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask, 0 , 1000);
+    }
+    private String getTimerText() {
+        int rounded = (int) Math.round(time);
+        int seconds = ((rounded % 86400) % 3600 ) % 60;
+        int minutes = ((rounded % 86400) % 3600 ) / 60;
+        int hours = ((rounded % 86400) / 3600 );
+
+        return formatTime(seconds, minutes, hours);
+    }
+
+    private String formatTime(int seconds, int minutes, int hours) {
+        return String.format("%02d", hours) + " : " + String.format("%02d", minutes) + " : " + String.format("%02d", seconds);
+    }
+
 
 }

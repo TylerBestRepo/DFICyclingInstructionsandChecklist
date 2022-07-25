@@ -23,6 +23,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DFICyclingInstructionsAndChecklist">
         <activity
+            android:name=".warningPage"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".audioNotification"
             android:exported="false" />
         <activity
@@ -31,11 +39,7 @@
         <activity
             android:name=".AudioRecorder"
             android:exported="true"
-            android:launchMode="singleInstance" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:launchMode="singleInstance">
         </activity>
         <activity
             android:name=".EmapticaBaselineHelp"
@@ -83,9 +87,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="Setup and Checklist">
-        </activity>
-
+            android:label="Setup and Checklist" />
         <service
             android:name=".myForegroundService"
             android:foregroundServiceType="dataSync" />

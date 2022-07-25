@@ -20,6 +20,7 @@ import android.graphics.Color;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.view.View;
@@ -93,7 +94,7 @@ public class AudioRecorder extends AppCompatActivity {
         stopRecordingMessage = (TextView)(findViewById(R.id.recordingMessage));
         recordingStartTime = (TextView) (findViewById(R.id.recordingStartTime));
         elapsedTime = (TextView)(findViewById(R.id.elapsedTime));
-        AudioTopMessage = (TextView)(findViewById(R.id.AudioMessage));
+        AudioTopMessage = findViewById(R.id.AudioMessage);
 
         verbalMessage = (TextView)(findViewById(R.id.verbalMessage));
 
@@ -106,9 +107,19 @@ public class AudioRecorder extends AppCompatActivity {
         }
 
         if(!startMessageShown){
-            alertDialog();
-        }
+            new CountDownTimer(500, 1000) {
+                public void onFinish() {
+                    // When timer is finished
+                    // Execute your code here
+                    alertDialog();
+                }
 
+                public void onTick(long millisUntilFinished) {
+                    // millisUntilFinished    The amount of time until finished.
+                }
+            }.start();
+
+        }
 
     }
 
@@ -150,6 +161,7 @@ public class AudioRecorder extends AppCompatActivity {
         /*Probably going to get the app to immediately go to the next "Main Page" after hitting record
          To prevent any annoying coding shenanigans
          */
+
         Intent straightToMainPage = new Intent(this,MainActivity.class);
         startActivity(straightToMainPage);
         
@@ -193,6 +205,7 @@ public class AudioRecorder extends AppCompatActivity {
         timerTask.cancel();
         stopRecordingMessage.setText("Recording has been saved!");
         verbalMessage.setVisibility(View.INVISIBLE);
+
 
     }
 
@@ -347,6 +360,9 @@ public class AudioRecorder extends AppCompatActivity {
             }
         });
         builder.show();
+        startMessageShown = true;
     }
+
+
 
 }
